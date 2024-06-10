@@ -23,6 +23,7 @@ import { chatState } from '../../context/chatProvider';
 import UserBadgeItem from '../userItem/UserBadgeItem';
 import UserListItem from '../userItem/UserListItem';
 import axios from 'axios';
+import url from '../key';
 export default function UpdateGroupChatModal({fetchAgain,setFetchAgain,fetchMessages,children}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {selectedChat,setSelectedChat,user}=chatState();
@@ -101,7 +102,7 @@ const handleRemove=async (removeUser)=>{
     try{
       // if(window.confirm("Are you sure you want to remove")){
       setLoading(true);
-      const {data}=await axios.put('/api/chat/groupremove',{
+      const {data}=await axios.put(`${url}/api/chat/groupremove`,{
         chatId:selectedChat._id,
         userId:removeUser._id
       },config);
@@ -152,7 +153,7 @@ const handleAddUser=async (addUser)=>{
     else{
       try{
         setLoading(true);
-        const {data}=await axios.put('/api/chat/groupadd',{
+        const {data}=await axios.put(`${url}/api/chat/groupadd`,{
           chatId:selectedChat._id,
           userId:addUser._id
         },config);
@@ -182,7 +183,7 @@ return;
 else{
   try{
     setRenameLoading(true);
-  const {data}=await axios.put("/api/chat/rename",{
+  const {data}=await axios.put(`${url}/api/chat/rename`,{
     chatId:selectedChat._id,
     chatName:groupChatName
   },config);

@@ -5,6 +5,7 @@ import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import url from '../key';
 
 export default function Signup() {
     const toast = useToast();
@@ -72,14 +73,14 @@ export default function Signup() {
         }
         else{
             try{
-                const check=await axios.post("/api/user/checkUser",{email:cred.email},config);
+                const check=await axios.post(`${url}/api/user/checkUser`,{email:cred.email},config);
                 console.log(check);
                 if(document.getElementById("pic").files.length>0){
                     // console.log("Uploading");
                     let result=await postdetails(document.getElementById("pic").files[0]);
                     if(result){
                         cred.pic=result;
-                        const response=await axios.post("/api/user/signup",cred,config);
+                        const response=await axios.post(`${url}/api/user/signup`,cred,config);
                         // console.log(response);
                         cookies.set("auth-token",response.data.token);
                         localStorage.setItem("userInfo",JSON.stringify(response.data));
@@ -95,7 +96,7 @@ export default function Signup() {
                     setCred({...cred,pic:undefined});
                     // console.log(cred);
                     // console.log("Sending");
-                    const response=await axios.post("/api/user/signup",cred,config);
+                    const response=await axios.post(`${url}/api/user/signup`,cred,config);
                     console.log(response);
                     cookies.set("auth-token",response.data.token);
                     localStorage.setItem("userInfo",JSON.stringify(response.data));

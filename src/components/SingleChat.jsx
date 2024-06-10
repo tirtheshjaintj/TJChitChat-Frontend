@@ -17,6 +17,7 @@ import axios from 'axios';
 import ScrollableChat from './ScrollableChat';
 import { chatState } from '../context/chatProvider';
 import io from 'socket.io-client';
+import url from './key';
 
 let socket,selectedChatCompare;
 
@@ -45,7 +46,7 @@ export default function SingleChat({ fetchAgain, setFetchAgain }) {
     if(!selectedChat) return;
     try {
       setLoading(true);
-      const {data}=await axios.get(`/api/message/${selectedChat._id}`,config);
+      const {data}=await axios.get(`${url}/api/message/${selectedChat._id}`,config);
       setMessages(data);
       setLoading(false);
     } catch (error) {
@@ -103,7 +104,7 @@ export default function SingleChat({ fetchAgain, setFetchAgain }) {
       socket.emit("stop typing",selectedChat._id);
       try {
         setNewMessage('');
-        const { data } = await axios.post('/api/message', {
+        const { data } = await axios.post(`${url}/api/message`, {
           content: newMessage,
           chatId: selectedChat._id
         }, config);

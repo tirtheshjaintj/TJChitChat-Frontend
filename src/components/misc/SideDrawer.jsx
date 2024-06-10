@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ChatLoading from '../ChatLoading';
 import UserListItem from '../userItem/UserListItem';
+import url from '../key';
 
 export default function SideDrawer() {
   const { user,setUser,setSelectedChat ,chats,setChats,notification,setNotification} = chatState();
@@ -56,7 +57,7 @@ const toast=useToast();
 const accessChat=async (userId)=>{
   try{
     setLoadingChat(true);
-    const {data}=await axios.post("/api/chat",{userId},config);
+    const {data}=await axios.post(`${url}/api/chat`,{userId},config);
     console.log(data);
 if(!chats.find((c)=>c._id===data._id)){
   setChats([data,...chats]);
@@ -94,7 +95,7 @@ if(!search){
 try {
   setLoading(true);
 
-  const {data}=await axios.get(`/api/user?search=${search}`,config);
+  const {data}=await axios.get(`${url}/api/user?search=${search}`,config);
   setLoading(false);
 setSearchResult(data);
 console.log(data);

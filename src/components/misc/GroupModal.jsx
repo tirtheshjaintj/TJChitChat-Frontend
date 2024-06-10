@@ -75,7 +75,7 @@ const handleSubmit=async ()=>{
   else{
     try{
       if(selectedUsers.length>=2){
-        const {data}=await axios.post("/api/chat/group",{
+        const {data}=await axios.post(`${url}/api/chat/group`,{
           name:groupChatName,
           users:JSON.stringify(selectedUsers)
         },config);

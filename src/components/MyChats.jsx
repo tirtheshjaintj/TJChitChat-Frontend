@@ -7,6 +7,7 @@ import ChatLoading from './ChatLoading';
 import { getSender } from '../config/chatLogic';
 import GroupChatModal from './misc/GroupModal';
 import './style.css';
+import url from './key';
 export default function MyChats({fetchAgain}) {
   const [loggedUser,setLoggedUser]=useState();
   const { user,setSelectedChat,selectedChat ,chats,setChats} = chatState();
@@ -18,7 +19,7 @@ export default function MyChats({fetchAgain}) {
   }
   const fetchChats=async ()=>{
     try{ 
-       const {data}=await axios.get("/api/chat",config);
+       const {data}=await axios.get(`${url}/api/chat`,config);
        setChats(data);
     }
     catch(error){

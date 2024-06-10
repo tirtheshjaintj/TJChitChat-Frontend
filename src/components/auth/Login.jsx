@@ -36,7 +36,7 @@ export default function Login() {
       else{
         try{
           setLoading(true);
-        const response=await axios.post("/api/user/login",cred,config);
+        const response=await axios.post(`${url}/api/user/login`,cred,config);
         cookies.set("auth-token",response.data.token);
         setLoading(false);
         localStorage.setItem("userInfo",JSON.stringify(response.data));
