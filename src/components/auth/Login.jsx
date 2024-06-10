@@ -5,6 +5,7 @@ import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import url from '../key';
 
 export default function Login() {
   const toast = useToast();
@@ -36,7 +37,7 @@ export default function Login() {
       else{
         try{
           setLoading(true);
-        const response=await axios.post(`${url}/api/user/login`,cred,config);
+        const response=await axios.post(`https://tjchitchat-backend.onrender.com/api/user/login`,cred,config);
         cookies.set("auth-token",response.data.token);
         setLoading(false);
         localStorage.setItem("userInfo",JSON.stringify(response.data));
